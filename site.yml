@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+  - debug: msg=localhost
+
+- hosts: group1
+  gather_facts: no
+  tasks:
+  - debug: msg={{ inventory_hostname }}
+
+- hosts: www.twitter.com
+  gather_facts: no
+  tasks:
+  - debug: msg="{{ item }} {{ hostvars[item]['ip'] }}"
+    with_items: groups.all
+
+
